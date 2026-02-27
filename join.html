@@ -55,10 +55,10 @@ async function addParticipant(){
     return;
   }
 
-  const res = await fetch("/api/add",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({name,company,wish})
+  const res = await fetch("/api/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, company, wish })
   });
 
   const data = await res.json();
@@ -73,3 +73,4 @@ async function addParticipant(){
 </body>
 
 </html>
+

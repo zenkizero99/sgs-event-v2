@@ -55,11 +55,6 @@ async function addParticipant(){
     return;
   }
 
-  if(countWords(wish) > 20){
-    alert("Tối đa 20 chữ!");
-    return;
-  }
-
   const res = await fetch("/api/add",{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
@@ -70,11 +65,11 @@ async function addParticipant(){
 
   if(data.success){
     alert("Đăng ký thành công!");
-    document.getElementById("name").value="";
-    document.getElementById("company").value="";
-    document.getElementById("wish").value="";
+  } else {
+    alert("Lỗi: " + data.error);
   }
 }
 </script>
 </body>
+
 </html>

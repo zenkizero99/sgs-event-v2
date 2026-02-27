@@ -1,16 +1,18 @@
-import { kv } from "@vercel/kv";
-
 export default async function handler(req, res) {
 
   try {
 
-    const data = await kv.lrange("participants", 0, -1);
+    const response = await fetch(process.env.BLOB_PUBLIC_URL + "/participants.json");
 
-    const parsed = data.map(item => JSON.parse(item));
+    if (!response.ok) {
+      return res.status(200).json([]);
+    }
 
-    return res.status(200).json(parsed.reverse());
+    const data = await response.json();
 
-  } catch (err) {
-    return res.status(500).json({ error: "Server error" });
+    return res.status(200).json(data);
+
+  } catch {
+    return res.status(200).json([]);
   }
 }

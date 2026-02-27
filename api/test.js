@@ -1,7 +1,11 @@
-import { kv } from '@vercel/kv';
+import { kv } from "@vercel/kv";
 
 export default async function handler(req, res) {
-  await kv.set("hello", "world");
-  const value = await kv.get("hello");
-  res.status(200).json({ value });
+  try {
+    await kv.set("ping", "pong");
+    const value = await kv.get("ping");
+    return res.status(200).json({ value });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Đăng ký tham gia</title>
+<style>
+body{
+  font-family:Arial;
+  text-align:center;
+  padding:40px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+}
+input,textarea{
+  padding:10px;
+  width:260px;
+  border-radius:8px;
+  border:none;
+}
+textarea{height:60px;resize:none;}
+button{
+  padding:10px 20px;
+  border-radius:30px;
+  border:none;
+  background:#ffcc00;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<h2>Đăng ký tham gia 🎉</h2>
+
+<input id="name" placeholder="Họ tên"><br><br>
+<input id="company" placeholder="Tên công ty"><br><br>
+<textarea id="wish" placeholder="Lời chúc (tối đa 20 chữ)"></textarea><br><br>
+
+<button onclick="addParticipant()">Tham gia</button>
+
+<script>
+
+function countWords(text){
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+async function addParticipant(){
+
+  let name = document.getElementById("name").value.trim();
+  let company = document.getElementById("company").value.trim();
+  let wish = document.getElementById("wish").value.trim();
+
+  if(!name || !company || !wish){
+    alert("Vui lòng nhập đầy đủ!");
+    return;
+  }
+
+  if(countWords(wish) > 20){
+    alert("Tối đa 20 chữ!");
+    return;
+  }
+
+  const res = await fetch("/api/add",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({name,company,wish})
+  });
+
+  const data = await res.json();
+
+  if(data.success){
+    alert("Đăng ký thành công!");
+    document.getElementById("name").value="";
+    document.getElementById("company").value="";
+    document.getElementById("wish").value="";
+  }
+}
+</script>
+</body>
+</html>

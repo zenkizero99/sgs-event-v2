@@ -1,8 +1,8 @@
 {
-  "name": "event-slideshow",
+  "name": "sgs-event",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@vercel/kv": "^1.0.0"
+    "@vercel/blob": "^0.23.0"
   }
 }
